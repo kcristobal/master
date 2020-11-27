@@ -8,6 +8,7 @@
 -- Author               Date          Description
 -- -------------------------------------------------------------------------------------------------
 -- Kristine Cristobal   22-Nov2020    Initial version created as a starting point
+-- Kristine Cristobal   26-Nov2020    Changed the source to integration - sat_product
 -- =================================================================================================
 
 CREATE OR REPLACE VIEW "JETADW_PROD_PRESENTATION_DB"."DATA_MART"."DIM_PRODUCT"
@@ -23,15 +24,6 @@ CREATE OR REPLACE VIEW "JETADW_PROD_PRESENTATION_DB"."DATA_MART"."DIM_PRODUCT"
 </CHANGE LOG>
 */
 AS
-SELECT 
-      asin as product_id
-    , title as product_title
-    , price as product_price
-    , brand as product_brand
-    , salesrank_key as product_rank_category
-    , salesrank_value as product_rank
-    , meta_source
-    , meta_load_dts
-    
-FROM "JETADW_PROD_ENRICHED_DB"."AMAZON"."VW_PRODUCT_METADATA"
+SELECT *
+FROM "JETADW_PROD_INTEGRATION_DB"."EDW"."SAT_PRODUCT"
 ;

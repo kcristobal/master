@@ -8,6 +8,7 @@
 -- Author               Date          Description
 -- -------------------------------------------------------------------------------------------------
 -- Kristine Cristobal   22-Nov2020    Initial version created as a starting point
+-- Kristine Cristobal   26-Nov2020    Changed the source to integration - TLINK_PRODUCT_REVIEWER
 -- =================================================================================================
 
 CREATE OR REPLACE VIEW "JETADW_PROD_PRESENTATION_DB"."DATA_MART"."FACT_PRODUCT_RATING"
@@ -23,11 +24,6 @@ CREATE OR REPLACE VIEW "JETADW_PROD_PRESENTATION_DB"."DATA_MART"."FACT_PRODUCT_R
 </CHANGE LOG>
 */
 AS
-SELECT 
-     review_date 
-    ,reviewerid AS reviewer_id
-    ,asin AS product_id
-    ,overall AS overall_rating
-    
-FROM "JETADW_PROD_ENRICHED_DB"."AMAZON"."VW_PRODUCT_REVIEW"
+SELECT *
+FROM "JETADW_PROD_INTEGRATION_DB"."EDW"."TLINK_PRODUCT_REVIEWER"
 ;
