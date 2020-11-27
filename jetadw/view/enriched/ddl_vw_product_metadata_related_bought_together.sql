@@ -28,7 +28,7 @@ CREATE OR REPLACE VIEW "JETADW_PROD_ENRICHED_DB"."AMAZON"."VW_PRODUCT_METADATA_R
 AS
 SELECT 
       asin
-    , bought_together.value::string as bought_together
+    , bought_together.value::string AS bought_together
     , meta_load_dts
     , meta_source
     , meta_event_type

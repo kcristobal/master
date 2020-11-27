@@ -33,6 +33,7 @@ SELECT
     , categories.value::string AS categories_value
     , sub_category.index::int AS sub_category_index
     , sub_category.value::string AS sub_category_value
+    , categories
     , meta_load_dts
     , meta_source
     , meta_event_type
@@ -40,5 +41,4 @@ SELECT
 FROM "JETADW_PROD_ENRICHED_DB"."AMAZON"."VW_PRODUCT_METADATA"
     ,lateral flatten(input => categories) categories
     ,lateral flatten(input => categories.value) sub_category
-
 ;

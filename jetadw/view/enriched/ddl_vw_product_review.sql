@@ -8,6 +8,7 @@
 -- Author               Date          Description
 -- -------------------------------------------------------------------------------------------------
 -- Kristine Cristobal   22-Nov2020    Initial version created as a starting point
+-- Kristine Cristobal   27-Nov2020    Exclude invalid product_id
 -- =================================================================================================
 
 USE ROLE SYSADMIN;
@@ -27,16 +28,15 @@ CREATE OR REPLACE VIEW "JETADW_PROD_ENRICHED_DB"."AMAZON"."VW_PRODUCT_REVIEW"
 */
 AS
 SELECT 
-     
       TO_TIMESTAMP(json_src:unixReviewTime)::date AS review_date
     , json_src:unixReviewTime::int AS unixReviewTime
     , json_src:asin::string AS asin
     , json_src:reviewerID::string AS reviewerID
     , json_src:reviewerName::string AS reviewerName
-    , json_src:overall::string AS overall
+    , json_src:overall::int AS overall
     , json_src:helpful::string AS helpful
-    , REPLACE(REPLACE(SPLIT_PART(helpful, ',', 1), '[', ''), ']', '') AS helpful_positive_feedback
-    , REPLACE(REPLACE(SPLIT_PART(helpful, ',', 2), '[', ''), ']', '') AS helpful_total_feedback
+    , CAST(REPLACE(REPLACE(SPLIT_PART(helpful, ',', 1), '[', ''), ']', '')AS INT) AS helpful_positive_feedback
+    , CAST(REPLACE(REPLACE(SPLIT_PART(helpful, ',', 2), '[', ''), ']', '')AS INT) AS helpful_total_feedback
     , json_src:reviewTime::string AS reviewTime
     , json_src:summary::string AS summary
     , json_src:reviewText::string AS reviewText
@@ -44,4 +44,5 @@ SELECT
     , meta_source
     
 FROM "JETADW_PROD_LAKE_DB"."AMAZON"."PRODUCT_REVIEW"
+WHERE TRIM(asin) NOT IN ('\n    \n')
 ;
